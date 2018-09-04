@@ -22,33 +22,49 @@ public class LambdaTest {
 			System.out.println(person.toString());
 		}
 	}
-	public void sort()
+	public void sortPerson()
 	{
-		Collections.sort(personList, new FirstnameComparator());
+		Collections.sort(personList, new Comparator<Person>()
+				{
+					public int compare(Person p1,Person p2)
+					{
+						return p1.getPersonFirstname().compareTo(p2.getPersonFirstname());
+					}
+				});
 	}
-	public void conditionPrint()
+	public void conditionPrint(Condition condition)
 	{
 		for(Person person:personList)
 		{
-			if(person.getPersonFirstname().startsWith("M"))
+			if(condition.test(person))
 				System.out.println(person.toString());
 		}
 	}
 	public static void main(String arg[])
 	{
 		LambdaTest t = new LambdaTest();
-		t.printPerson();
-		t.sort();
+		t.conditionPrint(new Condition()
+		{
+			public boolean test(Person person)
+			{
+				return true;
+			}
+		});
+		t.sortPerson();
 		System.out.println("_______________Sorted List___________________");
 		t.printPerson();
 		System.out.println("_______________Conditional Print_________________");
-		t.conditionPrint();
+		t.conditionPrint(new Condition()
+				{
+					public boolean test(Person person)
+					{
+						return person.getPersonFirstname().startsWith("M");
+					}
+				});
+		
 	}
 }
-class FirstnameComparator implements Comparator<Person>
+interface Condition
 {
-	public int compare(Person p1,Person p2)
-	{
-		return p1.getPersonFirstname().compareTo(p2.getPersonFirstname());
-	}
+	boolean test(Person person);
 }
