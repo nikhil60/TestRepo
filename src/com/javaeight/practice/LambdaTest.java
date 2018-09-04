@@ -15,23 +15,12 @@ public class LambdaTest {
 			new Person(4,"MahendraSingh","Dhoni","Ranchi","44444444")
 			);
 	
-	public void printPerson()
-	{
-		for(Person person:personList)
-		{
-			System.out.println(person.toString());
-		}
-	}
+
 	public void sortPerson()
 	{
-		Collections.sort(personList, new Comparator<Person>()
-				{
-					public int compare(Person p1,Person p2)
-					{
-						return p1.getPersonFirstname().compareTo(p2.getPersonFirstname());
-					}
-				});
+		Collections.sort(personList, (p1,p2)-> p1.getPersonFirstname().compareTo(p2.getPersonFirstname()));
 	}
+	
 	public void conditionPrint(Condition condition)
 	{
 		for(Person person:personList)
@@ -43,24 +32,12 @@ public class LambdaTest {
 	public static void main(String arg[])
 	{
 		LambdaTest t = new LambdaTest();
-		t.conditionPrint(new Condition()
-		{
-			public boolean test(Person person)
-			{
-				return true;
-			}
-		});
+		t.conditionPrint((Person person)->true);
 		t.sortPerson();
 		System.out.println("_______________Sorted List___________________");
-		t.printPerson();
+		t.conditionPrint((Person person)->true);
 		System.out.println("_______________Conditional Print_________________");
-		t.conditionPrint(new Condition()
-				{
-					public boolean test(Person person)
-					{
-						return person.getPersonFirstname().startsWith("M");
-					}
-				});
+		t.conditionPrint((Person person)->person.getPersonFirstname().startsWith("M"));
 		
 	}
 }
