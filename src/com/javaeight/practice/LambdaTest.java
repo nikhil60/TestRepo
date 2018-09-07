@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 
 
 public class LambdaTest {
@@ -28,6 +29,12 @@ public class LambdaTest {
 			if(condition.test(person))
 				System.out.println(person.toString());
 		}
+		
+	}
+	public void conditionPrintusingLambda()
+	{
+		personList.stream().filter(a->a.getPersonFirstname().startsWith("M")).forEach(System.out::println);
+		
 	}
 	public static void main(String arg[])
 	{
@@ -38,7 +45,8 @@ public class LambdaTest {
 		t.conditionPrint((Person person)->true);
 		System.out.println("_______________Conditional Print_________________");
 		t.conditionPrint((Person person)->person.getPersonFirstname().startsWith("M"));
-		
+		System.out.println("_______________Conditional Print Using Stream and Lambda and Method Reference_________________");
+		t.conditionPrintusingLambda();
 	}
 }
 interface Condition
